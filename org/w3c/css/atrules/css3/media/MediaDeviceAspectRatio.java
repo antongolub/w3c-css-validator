@@ -7,13 +7,12 @@ package org.w3c.css.atrules.css3.media;
 
 import org.w3c.css.atrules.css.media.MediaFeature;
 import org.w3c.css.util.ApplContext;
-import org.w3c.css.util.InvalidParamException;
 import org.w3c.css.values.CssExpression;
 import org.w3c.css.values.CssTypes;
 import org.w3c.css.values.CssValue;
 
 /**
- * @spec http://www.w3.org/TR/2012/REC-css3-mediaqueries-20120619/#device-aspect-ratio
+ * @spec https://www.w3.org/TR/2017/CR-mediaqueries-4-20170905/#mf-deprecated
  */
 public class MediaDeviceAspectRatio extends MediaFeature {
 
@@ -31,36 +30,12 @@ public class MediaDeviceAspectRatio extends MediaFeature {
      *          Values are incorrect
      */
     public MediaDeviceAspectRatio(ApplContext ac, String modifier,
-                                  CssExpression expression, boolean check)
-            throws InvalidParamException {
-
-        if (expression != null) {
-            if (expression.getCount() > 1) {
-                throw new InvalidParamException("unrecognize", ac);
-            }
-            if (expression.getCount() == 0) {
-                throw new InvalidParamException("few-value", getFeatureName(), ac);
-            }
-            CssValue val = expression.getValue();
-
-            if (val.getType() == CssTypes.CSS_RATIO) {
-                value = val;
-                setModifier(ac, modifier);
-            } else {
-                throw new InvalidParamException("unrecognize", ac);
-            }
-            setModifier(ac, modifier);
-        } else {
-            if (modifier != null) {
-                throw new InvalidParamException("nomodifiershortmedia",
-                        getFeatureName(), ac);
-            }
-        }
-
+                                  CssExpression expression, boolean check) {
+        reportDeprecatedMediaFeature(ac, modifier);
     }
 
     public MediaDeviceAspectRatio(ApplContext ac, String modifier, CssExpression expression)
-            throws InvalidParamException {
+            {
         this(ac, modifier, expression, false);
     }
 
